@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,6 +10,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     public float speed;
     public GameObject player;
+    public Text task;
+    public Text HealthText;
+
+    public int health = 3;
+    public int cntCapsules = 3;
 
     IEnumerator StopVelocity()
     {
@@ -19,18 +26,26 @@ public class PlayerController : MonoBehaviour
     }
 
     public bool onGround = true;
+
+    void DeadPlayer()
+    {
+        health--;
+        HealthText.text = "Количество жизней: " + health.ToString();
+        if (health > 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
     
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        HealthText.text = "Количество жизней: " + health.ToString();
+        task.text = "Задание: Собрать капсул - " + cntCapsules.ToString();
     }
     
     void Update()
     {
-        if (player.transform.position.y < 0.0f)
-        {
-            Debug.Log("УМЕР");
-        }
     }
 
     void FixedUpdate()
@@ -56,5 +71,27 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         onGround = true;
+
+        if (collision.gameObject.name == "Capsule")
+        {
+            Destroy(collision.gameObject);
+            cntCapsules--;
+            if (cntCapsules == 0)
+            {
+                task.text = "Задания выполенены";
+            }
+            else
+            {
+                task.text = "Задание: Собрать капсул - " + cntCapsules.ToString();
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.name == "GameObject")
+        {
+            DeadPlayer();
+        }
     }
 }
