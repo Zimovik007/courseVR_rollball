@@ -12,26 +12,17 @@ public class PlayerController : MonoBehaviour
     public GameObject player;
     public Text task;
     public Text HealthText;
+    public GameManager gameManager = GameManager.Instance;
 
-    public int health = 3;
     public int cntCapsules = 3;
-
-    IEnumerator StopVelocity()
-    {
-        while (true)
-        {
-            yield return null;
-            Debug.Log(Time.deltaTime);
-        }
-    }
 
     public bool onGround = true;
 
     void DeadPlayer()
     {
-        health--;
-        HealthText.text = "Количество жизней: " + health.ToString();
-        if (health > 0)
+        gameManager.decHealth();
+        HealthText.text = "Количество жизней: " + gameManager.health.ToString();
+        if (gameManager.health > 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -40,7 +31,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        HealthText.text = "Количество жизней: " + health.ToString();
+        HealthText.text = "Количество жизней: " + gameManager.health.ToString();
         task.text = "Задание: Собрать капсул - " + cntCapsules.ToString();
     }
     
@@ -78,7 +69,7 @@ public class PlayerController : MonoBehaviour
             cntCapsules--;
             if (cntCapsules == 0)
             {
-                task.text = "Задания выполенены";
+                task.text = "Задания выполнены";
             }
             else
             {
