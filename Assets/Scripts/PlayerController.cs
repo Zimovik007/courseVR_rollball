@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public Text HealthText;
     public GameManager gameManager = GameManager.Instance;
 
-    public int cntCapsules = 3;
+    public int cntCapsules = 4;
 
     public bool onGround = true;
 

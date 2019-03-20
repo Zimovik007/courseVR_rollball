@@ -280,3 +280,6 @@ C:\Users\dvfu4\Documents\artem\unity\Learn project\obj\Debug\Assembly-CSharp.csp
 C:\Users\dvfu4\Documents\artem\unity\Learn project\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\dvfu4\Documents\artem\unity\Learn project\obj\Debug\Assembly-CSharp.dll
 C:\Users\dvfu4\Documents\artem\unity\Learn project\obj\Debug\Assembly-CSharp.pdb
+C:\vrProjects\Zimovik007_rollball\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\vrProjects\Zimovik007_rollball\obj\Debug\Assembly-CSharp.dll
+C:\vrProjects\Zimovik007_rollball\obj\Debug\Assembly-CSharp.pdb
