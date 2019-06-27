@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             gameManager.index = 0;
+            gameManager.nullCapsules();
+        }
+        else
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
     
@@ -73,6 +78,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             cntCapsules--;
+            gameManager.incGotCapsules();
             if (cntCapsules == 0)
             {
                 task.text = "Задания выполнены";
@@ -81,6 +87,13 @@ public class PlayerController : MonoBehaviour
             {
                 task.text = "Задание: Собрать капсул - " + cntCapsules.ToString();
             }
+        }
+
+        if (collision.gameObject.name == "FinishBlock")
+        {
+            task.text = "Игра завершена";
+            gameManager.win();
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
