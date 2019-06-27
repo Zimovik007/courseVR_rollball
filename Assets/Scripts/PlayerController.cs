@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
         if (gameManager.health > 0)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            gameManager.index = 0;
         }
     }
     
@@ -46,15 +47,20 @@ public class PlayerController : MonoBehaviour
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
+        int index = gameManager.index;
+
+        float[] moveArr = new float[] { moveHorizontal, moveVertical };
+        float[] resultMoveArr = new float[] { moveArr[gameManager.movementOffsets[index * 4]] * gameManager.movementOffsets[index * 4 + 1], moveArr[gameManager.movementOffsets[index * 4 + 2]] * gameManager.movementOffsets[index * 4 + 3] };
+
         if (jump && onGround)
         {
             onGround = false;
-            Vector3 jumpMovement = new Vector3(moveHorizontal, 50.0f, moveVertical);
+            Vector3 jumpMovement = new Vector3(resultMoveArr[0], 50.0f, resultMoveArr[1]);
             rb.AddForce(jumpMovement * speed);
         }
         else
         {
-            Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+            Vector3 movement = new Vector3(resultMoveArr[0], 0.0f, resultMoveArr[1]);
             rb.AddForce(movement * speed);
         }
     }
